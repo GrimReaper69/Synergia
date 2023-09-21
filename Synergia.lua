@@ -1,7 +1,7 @@
 if _G.Synergia then _G.Synergia.Window:Destroy() end
 
 
-_G.UIL = {
+_G.UserInterfaceLibrary = {
 	["Service"] = {
 		["Players"] = game:GetService("Players"),
 		["Player"] = game:GetService("Players").LocalPlayer,
@@ -17,36 +17,36 @@ _G.UIL = {
 			local service: TweenService = nil
 			local properties = {}
 			properties[property] = value
-			service = _G.UIL.Service.TweenService:Create(element, TweenInfo.new(.2, Enum.EasingStyle.Linear), properties)
+			service = _G.UserInterfaceLibrary.Service.TweenService:Create(element, TweenInfo.new(.2, Enum.EasingStyle.Linear), properties)
 			service:Play()
 			return service end,
 		["RunCallback"] = function(name: string, callback: any)
-			_G.UIL.Function.CreateProcess(name, callback)
+			_G.UserInterfaceLibrary.Function.CreateProcess(name, callback)
 		end,
 		["CreateProcess"] = function(name: string, process: any)
-			_G.UIL.Function.CloseProcess(name)
+			_G.UserInterfaceLibrary.Function.CloseProcess(name)
 			process = coroutine.create(process)
 			coroutine.resume(process)
-			_G.UIL.Service.Processes[name] = process
+			_G.UserInterfaceLibrary.Service.Processes[name] = process
 			print("Started Process | " .. name)
 		end,
 		["CloseProcess"] = function(name: string)
-			if _G.UIL.Service.Processes[name] then
-				coroutine.close(_G.UIL.Service.Processes[name])
-				_G.UIL.Service.Processes[name] = nil
+			if _G.UserInterfaceLibrary.Service.Processes[name] then
+				coroutine.close(_G.UserInterfaceLibrary.Service.Processes[name])
+				_G.UserInterfaceLibrary.Service.Processes[name] = nil
 				print("Closed Process | " .. name)
 			end
 		end,
 		["CreateEvent"] = function(name: string, event: RBXScriptSignal, callback)
-			_G.UIL.Function.CloseEvent(name)
-			_G.UIL.Service.Events[name] = event:Connect(callback)
+			_G.UserInterfaceLibrary.Function.CloseEvent(name)
+			_G.UserInterfaceLibrary.Service.Events[name] = event:Connect(callback)
 			print("Connected Event | " .. name)
 			return name
 		end,
 		["CloseEvent"] = function(name: string)
-			if _G.UIL.Service.Events[name] then
-				_G.UIL.Service.Events[name]:Disconnect()
-				_G.UIL.Service.Events[name] = nil
+			if _G.UserInterfaceLibrary.Service.Events[name] then
+				_G.UserInterfaceLibrary.Service.Events[name]:Disconnect()
+				_G.UserInterfaceLibrary.Service.Events[name] = nil
 				print("Disconnected Event | " .. name)
 			end
 		end
@@ -67,56 +67,56 @@ _G.UIL = {
 }
 
 
-_G.UIL.Element.Element.__index = _G.UIL.Element.Element
+_G.UserInterfaceLibrary.Element.Element.__index = _G.UserInterfaceLibrary.Element.Element
 
 
-_G.UIL.Element.Page.__index = _G.UIL.Element.Page
-setmetatable(_G.UIL.Element.Page, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Page.__index = _G.UserInterfaceLibrary.Element.Page
+setmetatable(_G.UserInterfaceLibrary.Element.Page, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Tab.__index = _G.UIL.Element.Tab
-setmetatable(_G.UIL.Element.Tab, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Tab.__index = _G.UserInterfaceLibrary.Element.Tab
+setmetatable(_G.UserInterfaceLibrary.Element.Tab, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Label.__index = _G.UIL.Element.Label
-setmetatable(_G.UIL.Element.Label, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Label.__index = _G.UserInterfaceLibrary.Element.Label
+setmetatable(_G.UserInterfaceLibrary.Element.Label, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Paragraph.__index = _G.UIL.Element.Paragraph
-setmetatable(_G.UIL.Element.Paragraph, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Paragraph.__index = _G.UserInterfaceLibrary.Element.Paragraph
+setmetatable(_G.UserInterfaceLibrary.Element.Paragraph, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Button.__index = _G.UIL.Element.Button
-setmetatable(_G.UIL.Element.Button, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Button.__index = _G.UserInterfaceLibrary.Element.Button
+setmetatable(_G.UserInterfaceLibrary.Element.Button, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Toggle.__index = _G.UIL.Element.Toggle
-setmetatable(_G.UIL.Element.Toggle, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Toggle.__index = _G.UserInterfaceLibrary.Element.Toggle
+setmetatable(_G.UserInterfaceLibrary.Element.Toggle, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Keybind.__index = _G.UIL.Element.Keybind
-setmetatable(_G.UIL.Element.Keybind, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Keybind.__index = _G.UserInterfaceLibrary.Element.Keybind
+setmetatable(_G.UserInterfaceLibrary.Element.Keybind, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Slider.__index = _G.UIL.Element.Slider
-setmetatable(_G.UIL.Element.Slider, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Slider.__index = _G.UserInterfaceLibrary.Element.Slider
+setmetatable(_G.UserInterfaceLibrary.Element.Slider, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Textbox.__index = _G.UIL.Element.Textbox
-setmetatable(_G.UIL.Element.Textbox, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Textbox.__index = _G.UserInterfaceLibrary.Element.Textbox
+setmetatable(_G.UserInterfaceLibrary.Element.Textbox, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-_G.UIL.Element.Dropdown.__index = _G.UIL.Element.Dropdown
-setmetatable(_G.UIL.Element.Dropdown, {__index = _G.UIL.Element.Element})
+_G.UserInterfaceLibrary.Element.Dropdown.__index = _G.UserInterfaceLibrary.Element.Dropdown
+setmetatable(_G.UserInterfaceLibrary.Element.Dropdown, {__index = _G.UserInterfaceLibrary.Element.Element})
 
 
-function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: ScrollingFrame, pages: Frame, tooltip: TextLabel, uiPageLayout: UIPageLayout, homePage: ScrollingFrame, homeTab: Frame)
-	local pageMeta = setmetatable({}, _G.UIL.Element.Page)
+function _G.UserInterfaceLibrary.Element.Element:CreatePage(title: string, icon: number, tabs: ScrollingFrame, pages: Frame, tooltip: TextLabel, uiPageLayout: UIPageLayout, homePage: ScrollingFrame, homeTab: Frame)
+	local pageMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Page)
 	pageMeta.page = nil
 	pageMeta.tab = nil
 	pageMeta.name = title
-	
-	
+
+
 	--- [ Page (Pages) (Instance) ] ---
 
 
@@ -155,39 +155,39 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 
 	local pageUiPadding = Instance.new("UIPadding")
 	pageUiPadding.Parent = page
-	
-	
+
+
 	--- [ Page.Script (Pages) (Script) ] ---
 
 
-	pageUiPadding.PaddingTop = UDim.new(0, _G.UIL.Service.MonitorSize.Y * 0.02)
+	pageUiPadding.PaddingTop = UDim.new(0, _G.UserInterfaceLibrary.Service.MonitorSize.Y * 0.02)
 	pageMeta.page = page
-	
-	
-	_G.UIL.Function.CreateEvent(
+
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		title .. " Page (Destroying)",
 		page.Destroying,
 		function()
-			_G.UIL.Function.CreateProcess(
+			_G.UserInterfaceLibrary.Function.CreateProcess(
 				title .. " Page (Destroying)",
 				function()
 					pageMeta.page = nil
-					_G.UIL.Function.CloseEvent(title .. " Page (Destroying)")
+					_G.UserInterfaceLibrary.Function.CloseEvent(title .. " Page (Destroying)")
 				end
 			)
 		end
 	)
-	
-	
+
+
 	local events: { string } = {}
-	
-	
+
+
 	function pageMeta:Open()
 		for _, tab in pairs(tabs:GetChildren()) do if tab.Name == title then return pageMeta:Select() end end
-		
-		
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
+
+
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
 
 		--- [ Tab (Tabs) (Instance) ] ---
 
@@ -345,55 +345,55 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 
 
 		--- [ Tab.Script (Tabs) (Event) ] ---
-		
-		
+
+
 		local animation: Tween = nil
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Close Tab Button (MouseButton1Click)",
 			closeTabButton.MouseButton1Click,
 			function() pageMeta:Close() end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Close Tab Button (MouseEnter)",
 			closeTabButton.MouseEnter,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(switchTabButtonTabDisplayCloseTabLabel, "TextColor3", Color3.fromRGB(204, 51, 51))
+				animation = _G.UserInterfaceLibrary.Function.Animate(switchTabButtonTabDisplayCloseTabLabel, "TextColor3", Color3.fromRGB(204, 51, 51))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Close Tab Button (MouseLeave)",
 			closeTabButton.MouseLeave,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(switchTabButtonTabDisplayCloseTabLabel, "TextColor3", Color3.fromRGB(221, 221, 221))
+				animation = _G.UserInterfaceLibrary.Function.Animate(switchTabButtonTabDisplayCloseTabLabel, "TextColor3", Color3.fromRGB(221, 221, 221))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Switch Tab Button (MouseButton1Click)",
 			switchTabButton.MouseButton1Click,
 			function() pageMeta:Select() end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Switch Tab Button (MouseEnter)",
 			switchTabButton.MouseEnter,
 			function()
 				if not tab:GetAttribute("Enabled") then
-					_G.UIL.Function.Animate(tab, "BackgroundColor3", Color3.fromRGB(49, 49, 49))
+					_G.UserInterfaceLibrary.Function.Animate(tab, "BackgroundColor3", Color3.fromRGB(49, 49, 49))
 				end
 				if isTruncated then
 					local cursorPosition = game:GetService("UserInputService"):GetMouseLocation()
@@ -404,9 +404,9 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 				end
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Switch Tab Button (MouseMoved)",
 			switchTabButton.MouseMoved,
 			function()
@@ -415,38 +415,38 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 				tooltip.Position = UDim2.new(0, cursorPosition.X - tooltip.AbsoluteSize.X / 2, 0, cursorPosition.Y * 1.7 - cursorPosition.Y)
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Switch Tab Button (MouseLeave)",
 			switchTabButton.MouseLeave,
 			function()	
 				tooltip.Visible = false
 				tooltip.Size = UDim2.new(1, 0, 0.03, 0)
 				if not tab:GetAttribute("Enabled") then
-					_G.UIL.Function.Animate(tab, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
+					_G.UserInterfaceLibrary.Function.Animate(tab, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
 				end
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			title .. " Tab (Destroying)",
 			tab.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(title .. " Tab (Destroying)", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(title .. " Tab (Destroying)", function()
 					pageMeta.tab = nil
 					tooltip.Visible = false
 					homeTab:SetAttribute("Enabled", true)
 					uiPageLayout:JumpTo(homePage)
-					_G.UIL.Function.Animate(homeTab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
+					_G.UserInterfaceLibrary.Function.Animate(homeTab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
 					for _, v in pairs(tabs:GetChildren()) do
 						if v:IsA("Frame") and v.Name ~= homeTab.Name then
 							v:SetAttribute("Enabled", false)
-							_G.UIL.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
+							_G.UserInterfaceLibrary.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
 						end
 					end
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
@@ -460,11 +460,11 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 		if not pageMeta.tab then pageMeta:Open() end
 		pageMeta.tab:SetAttribute("Enabled", true)
 		uiPageLayout:JumpTo(page)
-		_G.UIL.Function.Animate(pageMeta.tab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
+		_G.UserInterfaceLibrary.Function.Animate(pageMeta.tab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
 		for _, v in pairs(tabs:GetChildren()) do
 			if v:IsA("Frame") and v.Name ~= title then
 				v:SetAttribute("Enabled", false)
-				_G.UIL.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
+				_G.UserInterfaceLibrary.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
 			end
 		end
 	end
@@ -473,47 +473,47 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 	function pageMeta:Close()
 		if pageMeta.tab then pageMeta.tab:Destroy() end
 	end
-	
-	
+
+
 	function pageMeta:CreateLabel(content: { text: string })
 		assert(content.text, "Missing arguments while trying to create a label.")
-		return _G.UIL.Element.Element:CreateLabel(pageMeta, content.text)
+		return _G.UserInterfaceLibrary.Element.Element:CreateLabel(pageMeta, content.text)
 	end
 
 
 	function pageMeta:CreateParagraph(content: { title: string, description: string })
 		assert(content.title and content.description, "Missing arguments while trying to create a paragraph.")
-		return _G.UIL.Element.Element:CreateParagraph(pageMeta, content.title, content.description)
+		return _G.UserInterfaceLibrary.Element.Element:CreateParagraph(pageMeta, content.title, content.description)
 	end
 
 
 	function pageMeta:CreateButton(content: { title: string, description: string, callback: any })
 		assert(content.title and content.callback, "Missing arguments while trying to create a button.")
-		return _G.UIL.Element.Element:CreateButton(pageMeta, content.title, content.description, content.callback)
+		return _G.UserInterfaceLibrary.Element.Element:CreateButton(pageMeta, content.title, content.description, content.callback)
 	end
 
 
 	function pageMeta:CreateToggle(content: { title: string, description: string, default: boolean, callback: any })
 		assert(content.title and content.callback and content.default ~= nil, "Missing arguments while trying to create a toggle.")
-		return _G.UIL.Element.Element:CreateToggle(pageMeta, content.title, content.description, content.default, content.callback)
+		return _G.UserInterfaceLibrary.Element.Element:CreateToggle(pageMeta, content.title, content.description, content.default, content.callback)
 	end
 
 
 	function pageMeta:CreateKeybind(content: { title: string, description: string, default: Enum.KeyCode, callback: any })
 		assert(content.title and content.callback and content.default, "Missing arguments while trying to create a keybind.")
-		return _G.UIL.Element.Element:CreateKeybind(pageMeta, content.title, content.description, content.default, content.callback)
+		return _G.UserInterfaceLibrary.Element.Element:CreateKeybind(pageMeta, content.title, content.description, content.default, content.callback)
 	end
 
 
 	function pageMeta:CreateSlider(content: { title: string, description: string, default: number, min: number, max: number, callback: any })
 		assert(content.title and content.callback and content.default and content.min and content.max, "Missing arguments while trying to create a slider.")
-		return _G.UIL.Element.Element:CreateSlider(pageMeta, content.title, content.description, content.default, content.min, content.max, content.callback)
+		return _G.UserInterfaceLibrary.Element.Element:CreateSlider(pageMeta, content.title, content.description, content.default, content.min, content.max, content.callback)
 	end
 
 
 	function pageMeta:CreateTextbox(content: { title: string, description: string, placeholder: string, callback: any })
 		assert(content.title and content.callback and content.placeholder, "Missing arguments while trying to create a textbox.")
-		return _G.UIL.Element.Element:CreateTextbox(pageMeta, content.title, content.description, content.placeholder, content.callback)
+		return _G.UserInterfaceLibrary.Element.Element:CreateTextbox(pageMeta, content.title, content.description, content.placeholder, content.callback)
 	end
 
 
@@ -524,16 +524,16 @@ function _G.UIL.Element.Element:CreatePage(title: string, icon: number, tabs: Sc
 			if option == content.default then isDefaultValid = true break end
 		end
 		assert(isDefaultValid, "Invalid default while trying to create a dropdown.")
-		return _G.UIL.Element.Element:CreateDropdown(pageMeta, content.title, content.description, content.default, content.options, content.callback)
+		return _G.UserInterfaceLibrary.Element.Element:CreateDropdown(pageMeta, content.title, content.description, content.default, content.options, content.callback)
 	end
-	
-	
+
+
 	return pageMeta
 end
 
 
-function _G.UIL.Element.Element:CreateTab(title: string, icon: number, tabs: ScrollingFrame, pages: Frame, home: ScrollingFrame, tooltip: TextLabel, uiPageLayout: UIPageLayout, homePage: ScrollingFrame, homeTab: Frame)
-	local pageMeta = _G.UIL.Element.Element:CreatePage(title, icon, tabs, pages, tooltip, uiPageLayout, homePage, homeTab)
+function _G.UserInterfaceLibrary.Element.Element:CreateTab(title: string, icon: number, tabs: ScrollingFrame, pages: Frame, home: ScrollingFrame, tooltip: TextLabel, uiPageLayout: UIPageLayout, homePage: ScrollingFrame, homeTab: Frame)
+	local pageMeta = _G.UserInterfaceLibrary.Element.Element:CreatePage(title, icon, tabs, pages, tooltip, uiPageLayout, homePage, homeTab)
 
 
 	--- [ HomePage.TabsFrame.Tab (Pages) (Instance) ] ---
@@ -587,9 +587,9 @@ function _G.UIL.Element.Element:CreateTab(title: string, icon: number, tabs: Scr
 
 	local animation: Tween = nil
 	local events: { string } = {}
-	
-	
-	table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+	table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 		title .. " Home Tab (MouseEnter)",
 		homePageTabsFrameTab.MouseEnter,
 		function()
@@ -599,14 +599,14 @@ function _G.UIL.Element.Element:CreateTab(title: string, icon: number, tabs: Scr
 			tooltip.Position = UDim2.new(0, cursorPosition.X - tooltip.AbsoluteSize.X / 2, 0, cursorPosition.Y * 1.85 - cursorPosition.Y)
 			tooltip.Visible = true
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 			animation.Completed:Wait()
 			animation = nil
 		end)
 	)
-	
 
-	table.insert(events, _G.UIL.Function.CreateEvent(
+
+	table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 		title .. " Home Tab (MouseMoved)",
 		homePageTabsFrameTab.MouseMoved,
 		function()
@@ -614,63 +614,63 @@ function _G.UIL.Element.Element:CreateTab(title: string, icon: number, tabs: Scr
 			tooltip.Position = UDim2.new(0, cursorPosition.X - tooltip.AbsoluteSize.X / 2, 0, cursorPosition.Y * 1.85 - cursorPosition.Y)
 		end)
 	)
-	
 
-	table.insert(events, _G.UIL.Function.CreateEvent(
+
+	table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 		title .. " Home Tab (MouseLeave)",
 		homePageTabsFrameTab.MouseLeave,
 		function()
 			tooltip.Visible = false
 			tooltip.Size = UDim2.new(1, 0, 0.03, 0)				
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
 			animation.Completed:Wait()
 			animation = nil
 		end)
 	)
-	
 
-	table.insert(events, _G.UIL.Function.CreateEvent(
+
+	table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 		title .. " Home Tab (MouseButton1Click)",
 		homePageTabsFrameTab.MouseButton1Click,
 		function()
-			pageMeta.page.CanvasSize = UDim2.new(0, pageMeta.page.AbsoluteCanvasSize.X, 0, pageMeta.page.AbsoluteCanvasSize.Y + _G.UIL.Service.MonitorSize.Y * 0.1)
+			pageMeta.page.CanvasSize = UDim2.new(0, pageMeta.page.AbsoluteCanvasSize.X, 0, pageMeta.page.AbsoluteCanvasSize.Y + _G.UserInterfaceLibrary.Service.MonitorSize.Y * 0.1)
 			pageMeta:Select()				
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
 			animation.Completed:Wait()
-			animation = _G.UIL.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageTabsFrameTab, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 			animation.Completed:Wait()
 			animation = nil
 		end)
 	)
-	
-	
-	table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+	table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 		title .. " Home Tab (Destroying)",
 		homePageTabsFrameTab.Destroying,
 		function()
-			_G.UIL.Function.CreateProcess(title .. " Home Tab (Destroying)", function()
+			_G.UserInterfaceLibrary.Function.CreateProcess(title .. " Home Tab (Destroying)", function()
 				pageMeta = nil
-				for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+				for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 			end)
 		end)
 	)
-	
-	
+
+
 	function pageMeta:Destroy()
 		homePageTabsFrameTab:Destroy()
 		pageMeta:Close()
 		pageMeta.page:Destroy()
 	end
-	
+
 
 	return pageMeta
 end
 
 
-function _G.UIL.Element.Element:CreateLabel(pageMeta, text: string)
-	local labelMeta = setmetatable({}, _G.UIL.Element.Label)
+function _G.UserInterfaceLibrary.Element.Element:CreateLabel(pageMeta, text: string)
+	local labelMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Label)
 
 
 	--- [ Page.Label (Pages) (Instance) ] ---
@@ -720,8 +720,8 @@ function _G.UIL.Element.Element:CreateLabel(pageMeta, text: string)
 
 	function labelMeta:Set(content: { text: string })
 		text = content.text
-		
-		
+
+
 		label.Text = "Label"
 		label.TextSize = label.TextBounds.Y
 		label.TextScaled = false
@@ -745,29 +745,29 @@ function _G.UIL.Element.Element:CreateLabel(pageMeta, text: string)
 		if newLabelLines > 1 then
 			totalLabelHeightOffset -= labelTextSize
 			label.Size = UDim2.new(label.Size.X.Scale, 0, 0, totalLabelHeightOffset)
-			labelUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			labelUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
-		
-		
-		_G.UIL.Function.CreateEvent(
+
+
+		_G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Label (Destroying) (" .. tostring(string.len(text)) .. ")",
 			label.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Label (Destroying) (" .. tostring(string.len(text)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Label (Destroying) (" .. tostring(string.len(text)) .. ")", function()
 					labelMeta = nil
-					_G.UIL.Function.CloseEvent(pageMeta.name .. " Label (Destroying) (" .. tostring(string.len(text)) .. ")")
+					_G.UserInterfaceLibrary.Function.CloseEvent(pageMeta.name .. " Label (Destroying) (" .. tostring(string.len(text)) .. ")")
 				end)
 			end
 		)
 	end
 
-	
+
 	function labelMeta:Show() label.Visible = true end
-	
-	
+
+
 	function labelMeta:Hide() label.Visible = false end
-	
-	
+
+
 	function labelMeta:Destroy() label:Destroy() end
 
 
@@ -778,8 +778,8 @@ function _G.UIL.Element.Element:CreateLabel(pageMeta, text: string)
 end
 
 
-function _G.UIL.Element.Element:CreateParagraph(pageMeta, title: string, description: string)
-	local paragraphMeta = setmetatable({}, _G.UIL.Element.Paragraph)
+function _G.UserInterfaceLibrary.Element.Element:CreateParagraph(pageMeta, title: string, description: string)
+	local paragraphMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Paragraph)
 
 
 	--- [ Page.Paragraph (Pages) (Instance) ] ---
@@ -919,25 +919,25 @@ function _G.UIL.Element.Element:CreateParagraph(pageMeta, title: string, descrip
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			paragraphTitle.Size = UDim2.new(paragraphTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			paragraphUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			paragraphUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totaldescriptionHeightOffset -= descriptionTextSize
 			paragraphDescription.Size = UDim2.new(paragraphDescription.Size.X.Scale, 0, 0, totaldescriptionHeightOffset)
-			paragraphUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			paragraphUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		paragraph.Size = UDim2.new(paragraph.Size.X.Scale, 0, 0, totalTitleHeightOffset + totaldescriptionHeightOffset)
-		
-		
-		_G.UIL.Function.CreateEvent(
+
+
+		_G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Paragraph (Destroying) (" .. tostring(string.len(title) + string.len(description)) .. ")",
 			paragraph.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Paragraph (Destroying) (" .. tostring(string.len(title) + string.len(description)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Paragraph (Destroying) (" .. tostring(string.len(title) + string.len(description)) .. ")", function()
 					paragraphMeta = nil
 				end)
 			end
@@ -954,13 +954,13 @@ function _G.UIL.Element.Element:CreateParagraph(pageMeta, title: string, descrip
 		paragraphMeta:Set(title, content.description)
 	end
 
-	
+
 	function paragraphMeta:Show() paragraph.Visible = true end
-	
-	
+
+
 	function paragraphMeta:Hide() paragraph.Visible = false end
-	
-	
+
+
 	function paragraphMeta:Destroy() paragraph:Destroy() end
 
 
@@ -971,8 +971,8 @@ function _G.UIL.Element.Element:CreateParagraph(pageMeta, title: string, descrip
 end
 
 
-function _G.UIL.Element.Element:CreateButton(pageMeta, title: string, description: string, callback)
-	local buttonMeta = setmetatable({}, _G.UIL.Element.Button)
+function _G.UserInterfaceLibrary.Element.Element:CreateButton(pageMeta, title: string, description: string, callback)
+	local buttonMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Button)
 
 
 	--- [ Page.Button (Pages) (Instance) ] ---
@@ -1067,14 +1067,14 @@ function _G.UIL.Element.Element:CreateButton(pageMeta, title: string, descriptio
 	buttonDescriptionUiPadding.Parent = buttonDescription
 	buttonDescriptionUiPadding.PaddingLeft = UDim.new(0.025, 0)
 
-	
+
 	local events: { string } = {}	
-	
+
 
 	function buttonMeta:Set(content: { title: string, description: string, callback: any })
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
-		
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
+
 		title = content.title
 		description = content.description
 		callback = content.callback
@@ -1125,14 +1125,14 @@ function _G.UIL.Element.Element:CreateButton(pageMeta, title: string, descriptio
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			buttonTitle.Size = UDim2.new(buttonTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			buttonUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			buttonUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totaldescriptionHeightOffset -= descriptionTextSize
 			buttonDescription.Size = UDim2.new(buttonDescription.Size.X.Scale, 0, 0, totaldescriptionHeightOffset)
-			buttonUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			buttonUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
@@ -1141,57 +1141,57 @@ function _G.UIL.Element.Element:CreateButton(pageMeta, title: string, descriptio
 
 		local animation: Tween = nil
 
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Button (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseEnter)",
 			button.MouseEnter,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+				animation = _G.UserInterfaceLibrary.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Button (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseLeave)",
 			button.MouseLeave,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
+				animation = _G.UserInterfaceLibrary.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Button (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Click)",
 			button.MouseButton1Click,
 			function()
-				_G.UIL.Function.RunCallback(pageMeta.name .. " Button (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", callback)
+				_G.UserInterfaceLibrary.Function.RunCallback(pageMeta.name .. " Button (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", callback)
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
+				animation = _G.UserInterfaceLibrary.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
 				animation.Completed:Wait()
-				animation = _G.UIL.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+				animation = _G.UserInterfaceLibrary.Function.Animate(button, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Button (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 			button.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Button (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Button (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
 					buttonMeta = nil
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
-		
+
 
 		if description ~= nil then buttonDescription.Visible = true
 		else buttonDescription.Visible = false end
@@ -1216,14 +1216,14 @@ function _G.UIL.Element.Element:CreateButton(pageMeta, title: string, descriptio
 	function buttonMeta:SetCallback(content: { callback: any })
 		buttonMeta:Set(title, description, content.callback)
 	end
-	
-	
+
+
 	function buttonMeta:Show() button.Visible = true end
-	
-	
+
+
 	function buttonMeta:Hide() button.Visible = false end
-	
-	
+
+
 	function buttonMeta:Destroy() button:Destroy() end
 
 
@@ -1234,8 +1234,8 @@ function _G.UIL.Element.Element:CreateButton(pageMeta, title: string, descriptio
 end
 
 
-function _G.UIL.Element.Element:CreateToggle(pageMeta, title: string, description: string, default: boolean, callback)
-	local toggleMeta = setmetatable({}, _G.UIL.Element.Toggle)
+function _G.UserInterfaceLibrary.Element.Element:CreateToggle(pageMeta, title: string, description: string, default: boolean, callback)
+	local toggleMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Toggle)
 
 
 	--- [ Page.Toggle (Pages) (Instance) ] ---
@@ -1384,15 +1384,15 @@ function _G.UIL.Element.Element:CreateToggle(pageMeta, title: string, descriptio
 	local toggleTextFrameDescriptionUiPadding = Instance.new("UIPadding")
 	toggleTextFrameDescriptionUiPadding.Parent = toggleTextFrameDescription
 	toggleTextFrameDescriptionUiPadding.PaddingLeft = UDim.new(0.025, 0)
-	
-	
+
+
 	local events: { string } = {}
-	
+
 
 	function toggleMeta:Set(content: { title: string, description: string, default: boolean, callback: any })
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
-		
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
+
 		title = content.title
 		description = content.description
 		default = content.default
@@ -1448,14 +1448,14 @@ function _G.UIL.Element.Element:CreateToggle(pageMeta, title: string, descriptio
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			toggleTextFrameTitle.Size = UDim2.new(toggleTextFrameTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			toggleUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			toggleUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totalDescriptionHeightOffset -= descriptionTextSize
 			toggleTextFrameDescription.Size = UDim2.new(toggleTextFrameDescription.Size.X.Scale, 0, 0, totalDescriptionHeightOffset)
-			toggleUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			toggleUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
@@ -1465,68 +1465,68 @@ function _G.UIL.Element.Element:CreateToggle(pageMeta, title: string, descriptio
 
 		local function Activate()
 			if isToggled then
-				_G.UIL.Function.Animate(toggleIndicatorCircle, "Position", UDim2.new(0, 0, 0, 0))
-				_G.UIL.Function.Animate(toggleIndicator, "BackgroundColor3", Color3.fromRGB(180, 50, 50))
+				_G.UserInterfaceLibrary.Function.Animate(toggleIndicatorCircle, "Position", UDim2.new(0, 0, 0, 0))
+				_G.UserInterfaceLibrary.Function.Animate(toggleIndicator, "BackgroundColor3", Color3.fromRGB(180, 50, 50))
 			else
-				_G.UIL.Function.Animate(toggleIndicatorCircle, "Position", UDim2.new(0.5, 0, 0, 0))
-				_G.UIL.Function.Animate(toggleIndicator, "BackgroundColor3", Color3.fromRGB(50, 180, 50))
+				_G.UserInterfaceLibrary.Function.Animate(toggleIndicatorCircle, "Position", UDim2.new(0.5, 0, 0, 0))
+				_G.UserInterfaceLibrary.Function.Animate(toggleIndicator, "BackgroundColor3", Color3.fromRGB(50, 180, 50))
 			end
 			isToggled = not isToggled
-			_G.UIL.Function.RunCallback(pageMeta.name .. " Toggle (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(isToggled) end)
+			_G.UserInterfaceLibrary.Function.RunCallback(pageMeta.name .. " Toggle (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(isToggled) end)
 		end
 
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Toggle (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseEnter)",
 			toggle.MouseEnter,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+				animation = _G.UserInterfaceLibrary.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Toggle (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseLeave)",
 			toggle.MouseLeave,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
+				animation = _G.UserInterfaceLibrary.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Toggle (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Click)",
 			toggle.MouseButton1Click,
 			function()
 				Activate()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
+				animation = _G.UserInterfaceLibrary.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
 				animation.Completed:Wait()
-				animation = _G.UIL.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+				animation = _G.UserInterfaceLibrary.Function.Animate(toggle, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Toggle (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 			toggle.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Toggle (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Toggle (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
 					toggleMeta = nil
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
-		
-		
+
+
 		if description ~= nil then toggleTextFrameDescription.Visible = true
 		else toggleTextFrameDescription.Visible = false end
 
@@ -1559,13 +1559,13 @@ function _G.UIL.Element.Element:CreateToggle(pageMeta, title: string, descriptio
 		toggleMeta:Set(title, description, default, content.callback)
 	end
 
-	
+
 	function toggleMeta:Show() toggle.Visible = true end
-	
-	
+
+
 	function toggleMeta:Hide() toggle.Visible = false end
-	
-	
+
+
 	function toggleMeta:Destroy() toggle:Destroy() end
 
 
@@ -1576,8 +1576,8 @@ function _G.UIL.Element.Element:CreateToggle(pageMeta, title: string, descriptio
 end
 
 
-function _G.UIL.Element.Element:CreateKeybind(pageMeta, title: string, description: string, default: Enum.KeyCode, callback)
-	local keybindMeta = setmetatable({}, _G.UIL.Element.Keybind)
+function _G.UserInterfaceLibrary.Element.Element:CreateKeybind(pageMeta, title: string, description: string, default: Enum.KeyCode, callback)
+	local keybindMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Keybind)
 
 
 	--- [ Page.Keybind (Pages) (Instance) ] ---
@@ -1722,15 +1722,15 @@ function _G.UIL.Element.Element:CreateKeybind(pageMeta, title: string, descripti
 	local keybindTextFrameDescriptionUiPadding = Instance.new("UIPadding")
 	keybindTextFrameDescriptionUiPadding.Parent = keybindTextFrameDescription
 	keybindTextFrameDescriptionUiPadding.PaddingLeft = UDim.new(0.025, 0)
-	
-	
+
+
 	local events: { string } = {}
-	
-	
+
+
 	function keybindMeta:Set(content: { title: string, description: string, default: Enum.KeyCode, callback: any })
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
-		
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
+
 		title = content.title
 		description = content.description
 		default = content.default
@@ -1785,103 +1785,103 @@ function _G.UIL.Element.Element:CreateKeybind(pageMeta, title: string, descripti
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			keybindTextFrameTitle.Size = UDim2.new(keybindTextFrameTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			keybindUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			keybindUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totaldescriptionHeightOffset -= descriptionTextSize
 			keybindTextFrameDescription.Size = UDim2.new(keybindTextFrameDescription.Size.X.Scale, 0, 0, totaldescriptionHeightOffset)
-			keybindUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			keybindUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
-		
+
 		keybindKey.Size = UDim2.new(keybindKey.Size.X.Scale, 0, 0, keybindKey.AbsoluteSize.Y)
 		keybind.Size = UDim2.new(keybind.Size.X.Scale, 0, 0, totalTitleHeightOffset + totaldescriptionHeightOffset)
 
 
 		local keyPress = function(input: InputObject, gameProcessedEvent: boolean)
 			if input.KeyCode == default and not gameProcessedEvent then
-				_G.UIL.Function.RunCallback(pageMeta.name .. " Keybind (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(input.KeyCode) end)
+				_G.UserInterfaceLibrary.Function.RunCallback(pageMeta.name .. " Keybind (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(input.KeyCode) end)
 			end
 		end
 
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (InputBegan)",
-			_G.UIL.Service.UserInputService.InputBegan,
+			_G.UserInterfaceLibrary.Service.UserInputService.InputBegan,
 			keyPress)
 		)
 
-		
+
 		local function setKey()
 			keybindKey.Text = "..."
-			_G.UIL.Function.CloseEvent(pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (InputBegan)")
-			local once = _G.UIL.Service.UserInputService.InputBegan:Once(function(input: InputObject, gameProcessedEvent: boolean)
+			_G.UserInterfaceLibrary.Function.CloseEvent(pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (InputBegan)")
+			local once = _G.UserInterfaceLibrary.Service.UserInputService.InputBegan:Once(function(input: InputObject, gameProcessedEvent: boolean)
 				if input.KeyCode ~= Enum.KeyCode.Unknown and not gameProcessedEvent then
 					default = input.KeyCode
 				end
 				keybindKey.Text = default.Name
 			end)
 			while once.Connected do task.wait() end
-			_G.UIL.Function.CreateEvent(
+			_G.UserInterfaceLibrary.Function.CreateEvent(
 				pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (InputBegan)",
-				_G.UIL.Service.UserInputService.InputBegan,
+				_G.UserInterfaceLibrary.Service.UserInputService.InputBegan,
 				keyPress
 			)
 		end
 
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseEnter)",
 			keybind.MouseEnter,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+				animation = _G.UserInterfaceLibrary.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseLeave)",
 			keybind.MouseLeave,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
+				animation = _G.UserInterfaceLibrary.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Click)",
 			keybind.MouseButton1Click,
 			function()
 				setKey()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
+				animation = _G.UserInterfaceLibrary.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(91, 91, 91))
 				animation.Completed:Wait()
-				animation = _G.UIL.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+				animation = _G.UserInterfaceLibrary.Function.Animate(keybind, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Keybind (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 			keybind.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Keybind (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Keybind (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
 					keybindMeta = nil
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
-		
+
 
 		if description ~= nil then keybindTextFrameDescription.Visible = true
 		else keybindTextFrameDescription.Visible = false end
@@ -1915,13 +1915,13 @@ function _G.UIL.Element.Element:CreateKeybind(pageMeta, title: string, descripti
 		keybindMeta:Set(title, description, default, content.callback)
 	end
 
-	
+
 	function keybindMeta:Show() keybind.Visible = true end
 
 
 	function keybindMeta:Hide() keybind.Visible = false end
-	
-	
+
+
 	function keybindMeta:Destroy() keybind:Destroy() end
 
 
@@ -1932,8 +1932,8 @@ function _G.UIL.Element.Element:CreateKeybind(pageMeta, title: string, descripti
 end
 
 
-function _G.UIL.Element.Element:CreateSlider(pageMeta, title: string, description: string, default: number, min: number, max: number, callback)
-	local sliderMeta = setmetatable({}, _G.UIL.Element.Slider)
+function _G.UserInterfaceLibrary.Element.Element:CreateSlider(pageMeta, title: string, description: string, default: number, min: number, max: number, callback)
+	local sliderMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Slider)
 
 
 	--- [ Page.Slider (Pages) (Instance) ] ---
@@ -2148,14 +2148,14 @@ function _G.UIL.Element.Element:CreateSlider(pageMeta, title: string, descriptio
 	sliderDescriptionUiPadding.Parent = sliderDescription
 	sliderDescriptionUiPadding.PaddingLeft = UDim.new(0.025, 0)
 
-	
+
 	local events: { string } = {}
-	
+
 
 	function sliderMeta:Set(content: { title: string, description: string, default: number, min: number, max: number, callback: any })
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
-		
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
+
 		title = content.title
 		description = content.description
 		default = content.default
@@ -2212,14 +2212,14 @@ function _G.UIL.Element.Element:CreateSlider(pageMeta, title: string, descriptio
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			sliderTitle.Size = UDim2.new(sliderTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			sliderUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			sliderUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totalDescriptionHeightOffset -= descriptionTextSize
 			sliderDescription.Size = UDim2.new(sliderDescription.Size.X.Scale, 0, 0, totalDescriptionHeightOffset)
-			sliderUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			sliderUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
@@ -2231,67 +2231,67 @@ function _G.UIL.Element.Element:CreateSlider(pageMeta, title: string, descriptio
 			value = math.clamp(math.round(value), min, max)
 			sliderSliderFrameSliderBarSliderFiller.Size = UDim2.new((value - min) / (max - min), 0, 1, 0)
 			sliderSliderFrameSliderBarValue.Text = tostring(value)
-			_G.UIL.Function.RunCallback(pageMeta.name .. " Slider (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(value) end)
+			_G.UserInterfaceLibrary.Function.RunCallback(pageMeta.name .. " Slider (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(value) end)
 		end
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Slider Bar (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Down)",
 			sliderSliderFrameSliderBarSlider.MouseButton1Down,
 			function() isDragging = true end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Slider Bar (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Up)",
 			sliderSliderFrameSliderBarSlider.MouseButton1Up,
 			function() isDragging = false end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Slider Bar (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseLeave)",
 			sliderSliderFrameSliderBarSlider.MouseLeave,
 			function() isDragging = false end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Slider Bar (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseMoved)",
 			sliderSliderFrameSliderBarSlider.MouseMoved,
 			function()
 				if isDragging then
-					local xPosition = (_G.UIL.Service.Player:GetMouse().X - sliderSliderFrameSliderBarSlider.AbsolutePosition.X) / sliderSliderFrameSliderBarSlider.AbsoluteSize.X
+					local xPosition = (_G.UserInterfaceLibrary.Service.Player:GetMouse().X - sliderSliderFrameSliderBarSlider.AbsolutePosition.X) / sliderSliderFrameSliderBarSlider.AbsoluteSize.X
 					local newValue = min + xPosition * (max - min)
 					updateSlider(newValue)
 				end
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Slider Bar (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Click)",
 			sliderSliderFrameSliderBarSlider.MouseButton1Click,
 			function()
-				local xPosition = (_G.UIL.Service.Player:GetMouse().X - sliderSliderFrameSliderBarSlider.AbsolutePosition.X) / sliderSliderFrameSliderBarSlider.AbsoluteSize.X
+				local xPosition = (_G.UserInterfaceLibrary.Service.Player:GetMouse().X - sliderSliderFrameSliderBarSlider.AbsolutePosition.X) / sliderSliderFrameSliderBarSlider.AbsoluteSize.X
 				local newValue = min + xPosition * (max - min)
 				updateSlider(newValue)
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Slider (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 			slider.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Slider (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Slider (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
 					sliderMeta = nil
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
-		
-		
+
+
 		if description ~= nil then sliderDescription.Visible = true
 		else sliderDescription.Visible = false end
 
@@ -2334,7 +2334,7 @@ function _G.UIL.Element.Element:CreateSlider(pageMeta, title: string, descriptio
 
 
 	function sliderMeta:Hide() slider.Visible = false end
-	
+
 
 	function sliderMeta:Destroy() slider:Destroy() end
 
@@ -2346,8 +2346,8 @@ function _G.UIL.Element.Element:CreateSlider(pageMeta, title: string, descriptio
 end
 
 
-function _G.UIL.Element.Element:CreateTextbox(pageMeta, title: string, description: string, placeholder: string, callback)
-	local textboxMeta = setmetatable({}, _G.UIL.Element.Textbox)
+function _G.UserInterfaceLibrary.Element.Element:CreateTextbox(pageMeta, title: string, description: string, placeholder: string, callback)
+	local textboxMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Textbox)
 
 
 	--- [ Page.Textbox (Pages) (Instance) ] ---
@@ -2474,14 +2474,14 @@ function _G.UIL.Element.Element:CreateTextbox(pageMeta, title: string, descripti
 	textboxDescriptionUiPadding.Parent = textboxDescription
 	textboxDescriptionUiPadding.PaddingLeft = UDim.new(0.025, 0)
 
-	
+
 	local events: { string } = {}
- 	
+
 
 	function textboxMeta:Set(content: { title: string, description: string, placeholder: string, callback: any })
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
-		
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
+
 		title = content.title
 		description = content.description
 		placeholder = content.placeholder
@@ -2551,28 +2551,28 @@ function _G.UIL.Element.Element:CreateTextbox(pageMeta, title: string, descripti
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			textboxTitle.Size = UDim2.new(textboxTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			textboxUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			textboxUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totalDescriptionHeightOffset -= descriptionTextSize
 			textboxDescription.Size = UDim2.new(textboxDescription.Size.X.Scale, 0, 0, totalDescriptionHeightOffset)
-			textboxUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			textboxUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newTextboxLines > 1 then
 			totalTextboxHeightOffset -= textboxTextSize
 			textboxTextbox.Size = UDim2.new(textboxTextbox.Size.X.Scale, 0, 0, totalTextboxHeightOffset)
-			textboxUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			textboxUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		textbox.Size = UDim2.new(textbox.Size.X.Scale, 0, 0, totalTitleHeightOffset + totalDescriptionHeightOffset + totalTextboxHeightOffset)
 
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Textbox (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (GetPropertyChangedSignal)",
 			textboxTextbox:GetPropertyChangedSignal("Text"),
 			function()
@@ -2592,35 +2592,35 @@ function _G.UIL.Element.Element:CreateTextbox(pageMeta, title: string, descripti
 				if newTextboxLines > 1 then
 					totalTextboxHeightOffset -= textboxTextSize
 					textboxTextbox.Size = UDim2.new(textboxTextbox.Size.X.Scale, 0, 0, totalTextboxHeightOffset)
-					textboxUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+					textboxUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 				end
 
 
 				textbox.Size = UDim2.new(textbox.Size.X.Scale, 0, 0, textboxTitle.AbsoluteSize.Y + textboxDescription.AbsoluteSize.Y + textboxTextbox.AbsoluteSize.Y)
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Textbox (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (FocusLost)",
 			textboxTextbox.FocusLost,
 			function()
-				_G.UIL.Function.RunCallback(pageMeta.name .. " Textbox (Callback) (" .. tostring(string.len(content.title) + string.len(content.description) + string.len(content.placeholder)) .. ")", function() callback(textboxTextbox.Text) end)
+				_G.UserInterfaceLibrary.Function.RunCallback(pageMeta.name .. " Textbox (Callback) (" .. tostring(string.len(content.title) + string.len(content.description) + string.len(content.placeholder)) .. ")", function() callback(textboxTextbox.Text) end)
 			end)
 		)
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Textbox (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 			textbox.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Textbox (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description) + string.len(content.placeholder)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Textbox (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description) + string.len(content.placeholder)) .. ")", function()
 					textboxMeta = nil
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
-		
+
 
 		if description ~= nil then textboxDescription.Visible = true
 		else textboxDescription.Visible = false end	
@@ -2656,7 +2656,7 @@ function _G.UIL.Element.Element:CreateTextbox(pageMeta, title: string, descripti
 
 
 	function textboxMeta:Hide() textbox.Visible = false end
-	
+
 
 	function textboxMeta:Destroy() textbox:Destroy() end
 
@@ -2668,8 +2668,8 @@ function _G.UIL.Element.Element:CreateTextbox(pageMeta, title: string, descripti
 end
 
 
-function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, description: string, default: string, options: { string }, callback)
-	local dropdownMeta = setmetatable({}, _G.UIL.Element.Dropdown)
+function _G.UserInterfaceLibrary.Element.Element:CreateDropdown(pageMeta, title: string, description: string, default: string, options: { string }, callback)
+	local dropdownMeta = setmetatable({}, _G.UserInterfaceLibrary.Element.Dropdown)
 
 
 	--- [ Page.Dropdown (Pages) (Instance) ] ---
@@ -2892,8 +2892,8 @@ function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, descript
 	local dropdownDescriptionUiPadding = Instance.new("UIPadding")
 	dropdownDescriptionUiPadding.Parent = dropdownDescription
 	dropdownDescriptionUiPadding.PaddingLeft = UDim.new(0.025, 0)
-	
-	
+
+
 	local events: { string } = {}
 	local OptionButtons = {}
 	OptionButtons.__index = OptionButtons
@@ -2902,9 +2902,9 @@ function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, descript
 
 
 	function dropdownMeta:Set(content: { title: string, description: string, default: string, options: { string }, replace: boolean, callback: any })
-		for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
-		
-		
+		for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
+
+
 		local animation: Tween = nil
 		local isVisible = false
 
@@ -2970,68 +2970,68 @@ function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, descript
 		if newTitleLines > 1 then
 			totalTitleHeightOffset -= titleTextSize
 			dropdownTitle.Size = UDim2.new(dropdownTitle.Size.X.Scale, 0, 0, totalTitleHeightOffset)
-			dropdownUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			dropdownUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		if newDescriptionLines > 1 then
 			totalDescriptionHeightOffset -= descriptionTextSize
 			dropdownDescription.Size = UDim2.new(dropdownDescription.Size.X.Scale, 0, 0, totalDescriptionHeightOffset)
-			dropdownUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			dropdownUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 		end
 
 
 		dropdownDropdownFrame.Size = UDim2.new(dropdownDropdownFrame.Size.X.Scale, 0, 0, dropdownDropdownFrame.AbsoluteSize.Y)
 		dropdown.Size = UDim2.new(dropdown.Size.X.Scale, 0, 0, totalTitleHeightOffset + totalDescriptionHeightOffset + dropdownDropdownFrame.AbsoluteSize.Y)
 		dropdownDropdownFrameDropdownSelectedItem.Text = default
-		
-		
+
+
 		local function Open()
 			dropdownDropdownFrameDropdownDropdownMenu.Visible = true
-			_G.UIL.Function.Animate(dropdownDropdownFrameDropdownIndicator, "Rotation", 90)
-			_G.UIL.Function.Animate(dropdownDropdownFrameDropdownDropdownMenu, "Size", UDim2.new(dropdownDropdownFrameDropdownDropdownMenu.Size.X.Scale, 0, 4, 0))
+			_G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdownIndicator, "Rotation", 90)
+			_G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdownDropdownMenu, "Size", UDim2.new(dropdownDropdownFrameDropdownDropdownMenu.Size.X.Scale, 0, 4, 0))
 		end
-		
-		
+
+
 		local function Close()
 			spawn(function()
 				isVisible = false
-				_G.UIL.Function.Animate(dropdownDropdownFrameDropdownIndicator, "Rotation", 180)
-				local anim: TweenService = _G.UIL.Function.Animate(dropdownDropdownFrameDropdownDropdownMenu, "Size", UDim2.new(dropdownDropdownFrameDropdownDropdownMenu.Size.X.Scale, 0, 0, 0))
+				_G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdownIndicator, "Rotation", 180)
+				local anim: TweenService = _G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdownDropdownMenu, "Size", UDim2.new(dropdownDropdownFrameDropdownDropdownMenu.Size.X.Scale, 0, 0, 0))
 				anim.Completed:Wait()
 				dropdownDropdownFrameDropdownDropdownMenu.Visible = false
 			end)
 		end
-		
-		
+
+
 		if isVisible then Open() else Close() end
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Dropdown (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseEnter)",
 			dropdownDropdownFrameDropdown.MouseEnter,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(56, 56, 56))
+				animation = _G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(56, 56, 56))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Dropdown (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseLeave)",
 			dropdownDropdownFrameDropdown.MouseLeave,
 			function()
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(41, 41, 41))
+				animation = _G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(41, 41, 41))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
 
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Dropdown (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Click)",
 			dropdownDropdownFrameDropdown.MouseButton1Click,
 			function()
@@ -3040,32 +3040,32 @@ function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, descript
 				isVisible = not isVisible
 
 				if animation ~= nil then animation:Cancel() end
-				animation = _G.UIL.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(71, 71, 71))
+				animation = _G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(71, 71, 71))
 				animation.Completed:Wait()
-				animation = _G.UIL.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(56, 56, 56))
+				animation = _G.UserInterfaceLibrary.Function.Animate(dropdownDropdownFrameDropdown, "BackgroundColor3", Color3.fromRGB(56, 56, 56))
 				animation.Completed:Wait()
 				animation = nil
 			end)
 		)
-		
-		
+
+
 		local function RunCallback(selectedItem: string)
-			_G.UIL.Function.RunCallback(pageMeta.name .. " Dropdown (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(selectedItem) end)
+			_G.UserInterfaceLibrary.Function.RunCallback(pageMeta.name .. " Dropdown (Callback) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function() callback(selectedItem) end)
 		end
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Dropdown (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (GetPropertyChangedSignal)",
 			dropdownDropdownFrameDropdownSelectedItem:GetPropertyChangedSignal("Text"),
 			function() RunCallback(dropdownDropdownFrameDropdownSelectedItem.Text) end)
 		)
-		
+
 
 		function OptionButtons:CreateOption(option: string)
 			local optionButtonsMeta = setmetatable({}, OptionButtons)
 			table.insert(OptionButtons.buttons, optionButtonsMeta)
-			
-			
+
+
 			--- [ DropdownMenu.Option (Dropdown) (Instance) ] ---
 
 
@@ -3106,88 +3106,88 @@ function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, descript
 				optionButton.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
 			else optionButton:SetAttribute("Selected", false) end
 
-			
+
 			local buttonEvents: { string } = {}
-			
+
 
 			--- [ DropdownMenu.Option.Script (Dropdown) (Event) ] ---
 
-			
-			table.insert(buttonEvents, _G.UIL.Function.CreateEvent(
+
+			table.insert(buttonEvents, _G.UserInterfaceLibrary.Function.CreateEvent(
 				pageMeta.name .. " Dropdown Option (" .. option .. ") (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseEnter)",
 				optionButton.MouseEnter,
 				function()
 					if not optionButton:GetAttribute("Selected") then
-						_G.UIL.Function.Animate(optionButton, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
+						_G.UserInterfaceLibrary.Function.Animate(optionButton, "BackgroundColor3", Color3.fromRGB(61, 61, 61))
 					end
 				end)
 			)
 
 
-			table.insert(buttonEvents, _G.UIL.Function.CreateEvent(
+			table.insert(buttonEvents, _G.UserInterfaceLibrary.Function.CreateEvent(
 				pageMeta.name .. " Dropdown Option (" .. option .. ") (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseLeave)",
 				optionButton.MouseLeave,
 				function()
 					if not optionButton:GetAttribute("Selected") then
-						_G.UIL.Function.Animate(optionButton, "BackgroundColor3", Color3.fromRGB(46, 46, 46))
+						_G.UserInterfaceLibrary.Function.Animate(optionButton, "BackgroundColor3", Color3.fromRGB(46, 46, 46))
 					end
 				end)
 			)
 
 
-			table.insert(buttonEvents, _G.UIL.Function.CreateEvent(
+			table.insert(buttonEvents, _G.UserInterfaceLibrary.Function.CreateEvent(
 				pageMeta.name .. " Dropdown Option (" .. option .. ") (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (MouseButton1Click)",
 				optionButton.MouseButton1Click,
 				function()
 					dropdownDropdownFrameDropdownSelectedItem.Text = option
 					optionButton:SetAttribute("Selected", true)
-					_G.UIL.Function.Animate(optionButton, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
+					_G.UserInterfaceLibrary.Function.Animate(optionButton, "BackgroundColor3", Color3.fromRGB(76, 76, 76))
 					for _, v in pairs(dropdownDropdownFrameDropdownDropdownMenu:GetChildren()) do
 						if v:IsA("TextButton") and option ~= v.Text then
 							v:SetAttribute("Selected", false)
-							_G.UIL.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(46, 46, 46))
+							_G.UserInterfaceLibrary.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(46, 46, 46))
 						end
 					end
 				end)
 			)
-			
-			
-			table.insert(buttonEvents, _G.UIL.Function.CreateEvent(
+
+
+			table.insert(buttonEvents, _G.UserInterfaceLibrary.Function.CreateEvent(
 				pageMeta.name .. " Dropdown Option (" .. option .. ") (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 				optionButton.Destroying,
 				function()
-					_G.UIL.Function.CreateProcess(pageMeta.name .. " Dropdown Option (" .. option .. ") (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)", function()
+					_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Dropdown Option (" .. option .. ") (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)", function()
 						optionButtonsMeta = nil
-						for _, buttonEvent in pairs(buttonEvents) do _G.UIL.Function.CloseEvent(buttonEvent) end
+						for _, buttonEvent in pairs(buttonEvents) do _G.UserInterfaceLibrary.Function.CloseEvent(buttonEvent) end
 					end)
 				end)
 			)
-			
-			
+
+
 			function optionButtonsMeta:Destroy() optionButton:Destroy() end
 
 
 			return optionButtonsMeta
 		end
-		
-		
-		table.insert(events, _G.UIL.Function.CreateEvent(
+
+
+		table.insert(events, _G.UserInterfaceLibrary.Function.CreateEvent(
 			pageMeta.name .. " Dropdown (" .. tostring(string.len(content.title) + string.len(content.description)) .. ") (Destroying)",
 			dropdown.Destroying,
 			function()
-				_G.UIL.Function.CreateProcess(pageMeta.name .. " Dropdown (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
+				_G.UserInterfaceLibrary.Function.CreateProcess(pageMeta.name .. " Dropdown (Destroying) (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
 					dropdownMeta = nil
-					for _, event in pairs(events) do _G.UIL.Function.CloseEvent(event) end
+					for _, event in pairs(events) do _G.UserInterfaceLibrary.Function.CloseEvent(event) end
 				end)
 			end)
 		)
-		
-		
+
+
 		for _, option in pairs(options) do
 			OptionButtons:CreateOption(option)
 		end
-		
-		
+
+
 		RunCallback(dropdownDropdownFrameDropdownSelectedItem.Text)
 
 
@@ -3230,7 +3230,7 @@ function _G.UIL.Element.Element:CreateDropdown(pageMeta, title: string, descript
 
 
 	function dropdownMeta:Hide() dropdown.Visible = false end
-	
+
 
 	function dropdownMeta:Destroy() dropdown:Destroy() end
 
@@ -3256,7 +3256,7 @@ function _G.Synergia:CreateWindow()
 	local titleBar = Instance.new("Frame")
 
 
-	GUI.Parent = _G.UIL.Service.Player.PlayerGui
+	GUI.Parent = _G.UserInterfaceLibrary.Service.Player.PlayerGui
 	window.Parent = GUI
 	pages.Parent = window
 	titleBar.Parent = window
@@ -3303,11 +3303,11 @@ function _G.Synergia:CreateWindow()
 	local tooltipUiCorner = Instance.new("UICorner")
 	tooltipUiCorner.Parent = tooltip
 	tooltipUiCorner.CornerRadius = UDim.new(0.25, 0)
-	
-	
+
+
 	------------------------- [ NotificationPanel ] -------------------------
-	
-	
+
+
 	local notificationPanel = Instance.new("Frame")
 	notificationPanel.Parent = GUI
 	notificationPanel.Name = "NotificationPanel"
@@ -3315,11 +3315,11 @@ function _G.Synergia:CreateWindow()
 	notificationPanel.Position = UDim2.new(0.82, 0, -0.01, 0)
 	notificationPanel.Size = UDim2.new(0.175, 0, 1, 0)
 	notificationPanel.ZIndex = 0
-	
-	
+
+
 	--- [ UIListLayout (NotificationPanel) (Instance) ] ---
-	
-	
+
+
 	local UIListLayout = Instance.new("UIListLayout")
 	UIListLayout.Parent = notificationPanel
 	UIListLayout.Padding = UDim.new(0.015, 0)
@@ -3327,25 +3327,25 @@ function _G.Synergia:CreateWindow()
 	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	UIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-	
-	
+
+
 	function _G.Synergia.Window:Notify(content: { title: string, description: string, icon: number, duration: number })
-		
-		
+
+
 		--- [ NotificationHolder (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolder = Instance.new("Frame")
 		notificationHolder.Parent = notificationPanel
 		notificationHolder.Name = "NotificationHolder"
 		notificationHolder.BackgroundTransparency = 1
 		notificationHolder.Size = UDim2.new(2, 0, 0.07, 0)
 		notificationHolder.ZIndex = 1
-		
-		
+
+
 		--- [ NotificationHolder.UIPageLayout (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderUiPageLayout = Instance.new("UIPageLayout")
 		notificationHolderUiPageLayout.Parent = notificationHolder
 		notificationHolderUiPageLayout.Animated = true
@@ -3360,8 +3360,8 @@ function _G.Synergia:CreateWindow()
 		notificationHolderUiPageLayout.GamepadInputEnabled = false
 		notificationHolderUiPageLayout.ScrollWheelInputEnabled = false
 		notificationHolderUiPageLayout.TouchInputEnabled = false
-		
-		
+
+
 		--- [ NotificationHolder.NotificationPlaceholder (NotificationPanel) (Instance) ] ---
 
 
@@ -3371,11 +3371,11 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotificationPlaceholder.BackgroundTransparency = 1
 		notificationHolderNotificationPlaceholder.Size = UDim2.new(0.5, 0, 1, 0)
 		notificationHolderNotificationPlaceholder.ZIndex = 1
-		
-		
+
+
 		--- [ NotificationHolder.Notification (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderNotification = Instance.new("Frame")
 		notificationHolderNotification.Parent = notificationHolder
 		notificationHolderNotification.Name = "Notification"
@@ -3383,38 +3383,38 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotification.BackgroundColor3 = Color3.fromRGB(41, 41, 41)
 		notificationHolderNotification.Size = UDim2.new(0.5, 0, 1, 0)
 		notificationHolderNotification.ZIndex = 1
-		
-		
+
+
 		--- [ NotificationHolder.Notification.UICorner (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderNotificationUiCorner = Instance.new("UICorner")
 		notificationHolderNotificationUiCorner.Parent = notificationHolderNotification
 		notificationHolderNotificationUiCorner.CornerRadius = UDim.new(0.15, 0)
-		
-		
+
+
 		--- [ NotificationHolder.Notification.UIPadding (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderNotificationUiPadding = Instance.new("UIPadding")
 		notificationHolderNotificationUiPadding.Parent = notificationHolderNotification
 		notificationHolderNotificationUiPadding.PaddingTop = UDim.new(0.1, 0)
-		
-		
+
+
 		--- [ NotificationHolder.Notification.UIStroke (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderNotificationUiStroke = Instance.new("UIStroke")
 		notificationHolderNotificationUiStroke.Parent = notificationHolderNotification
 		notificationHolderNotificationUiStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
 		notificationHolderNotificationUiStroke.Color = Color3.fromRGB(21, 21, 21)
 		notificationHolderNotificationUiStroke.LineJoinMode = Enum.LineJoinMode.Round
 		notificationHolderNotificationUiStroke.Thickness = 2
-		
-		
+
+
 		--- [ NotificationHolder.Notification.Icon (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderNotificationIcon = Instance.new("ImageLabel")
 		notificationHolderNotificationIcon.Parent = notificationHolderNotification
 		notificationHolderNotificationIcon.Name = "Icon"
@@ -3424,11 +3424,11 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotificationIcon.ZIndex = 1
 		notificationHolderNotificationIcon.Image = "rbxassetid://" .. content.icon
 		notificationHolderNotificationIcon.ScaleType = Enum.ScaleType.Fit
-		
-		
+
+
 		--- [ NotificationHolder.Notification.TextFrame (NotificationPanel) (Instance) ] ---
-		
-		
+
+
 		local notificationHolderNotificationTextFrame = Instance.new("Frame")
 		notificationHolderNotificationTextFrame.Parent = notificationHolderNotification
 		notificationHolderNotificationTextFrame.Name = "TextFrame"
@@ -3436,11 +3436,11 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotificationTextFrame.Position = UDim2.new(0, 0, 0, 0)
 		notificationHolderNotificationTextFrame.Size = UDim2.new(1, 0, 0.9, 0)
 		notificationHolderNotificationTextFrame.ZIndex = 1
-		
-		
+
+
 		--- [ NotificationHolder.Notification.TextFrame.UIListLayout (NotificationPanel) (Instance) ] ---
 
-		
+
 		local notificationHolderNotificationTextFrameUiListLayout = Instance.new("UIListLayout")
 		notificationHolderNotificationTextFrameUiListLayout.Parent = notificationHolderNotificationTextFrame
 		notificationHolderNotificationTextFrameUiListLayout.Padding = UDim.new(-0.1, 0)
@@ -3448,8 +3448,8 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotificationTextFrameUiListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Left
 		notificationHolderNotificationTextFrameUiListLayout.SortOrder = Enum.SortOrder.LayoutOrder
 		notificationHolderNotificationTextFrameUiListLayout.VerticalAlignment = Enum.VerticalAlignment.Top
-		
-		
+
+
 		--- [ NotificationHolder.Notification.TextFrame.Title (NotificationPanel) (Instance) ] ---
 
 
@@ -3466,8 +3466,8 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotificationTextFrameTitle.TextTruncate = Enum.TextTruncate.AtEnd
 		notificationHolderNotificationTextFrameTitle.TextXAlignment = Enum.TextXAlignment.Left
 		notificationHolderNotificationTextFrameTitle.TextYAlignment = Enum.TextYAlignment.Center
-		
-		
+
+
 		--- [ NotificationHolder.Notification.TextFrame.Title.UIPadding (NotificationPanel) (Instance) ] ---
 
 
@@ -3490,38 +3490,38 @@ function _G.Synergia:CreateWindow()
 		notificationHolderNotificationTextFrameDescription.TextScaled = true
 		notificationHolderNotificationTextFrameDescription.TextXAlignment = Enum.TextXAlignment.Left
 		notificationHolderNotificationTextFrameDescription.TextYAlignment = Enum.TextYAlignment.Center
-		
-		
+
+
 		--- [ NotificationHolder.Notification.TextFrame.Description.UIPadding (NotificationPanel) (Instance) ] ---
 
 
 		local notificationHolderNotificationTextFrameDescriptionUiPadding = Instance.new("UIPadding")
 		notificationHolderNotificationTextFrameDescriptionUiPadding.Parent = notificationHolderNotificationTextFrameDescription
 		notificationHolderNotificationTextFrameDescriptionUiPadding.PaddingLeft = UDim.new(0.03, 0)
-		
-		
-		notificationHolderNotificationUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.015)
-		
-		
+
+
+		notificationHolderNotificationUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.015)
+
+
 		--- [ NotificationHolder.Notification.Script (NotificationPanel) (Script) ] ---
 
-		
+
 		notificationHolderNotificationTextFrameTitle.TextSize = notificationHolderNotificationTextFrameTitle.TextBounds.Y
 		notificationHolderNotificationTextFrameTitle.TextScaled = false
 		notificationHolderNotificationTextFrameTitle.TextWrapped = false
 		notificationHolderNotificationTextFrameTitle.Size = UDim2.new(notificationHolderNotificationTextFrameTitle.Size.X.Scale, 0, 0, notificationHolderNotificationTextFrameTitle.AbsoluteSize.Y)
 		notificationHolderNotificationTextFrameTitleUiPadding.PaddingBottom = UDim.new(0.3, 0)
-		
+
 
 		notificationHolderNotificationTextFrameDescription.Text = "Description"
 		notificationHolderNotificationTextFrameDescription.TextSize = notificationHolderNotificationTextFrameDescription.TextBounds.Y
 		notificationHolderNotificationTextFrameDescription.TextScaled = false
 		notificationHolderNotificationTextFrameDescription.Text = content.description
-		
-		
+
+
 		notificationHolderNotificationIcon.Size = UDim2.new(notificationHolderNotificationIcon.Size.X.Scale, 0, 0, notificationHolderNotificationIcon.AbsoluteSize.Y)
 		notificationHolderNotificationTextFrameUiListLayout.Padding = UDim.new(0, notificationHolderNotificationTextFrameDescription.AbsolutePosition.Y - (notificationHolderNotificationTextFrameTitle.AbsolutePosition.Y + notificationHolderNotificationTextFrameTitle.AbsoluteSize.Y))
-		
+
 
 		local descriptionTextSize = notificationHolderNotificationTextFrameDescription.TextSize
 		local oldDescriptionLines = 0
@@ -3542,12 +3542,12 @@ function _G.Synergia:CreateWindow()
 			notificationHolderNotificationTextFrameDescription.Size = UDim2.new(notificationHolderNotificationTextFrameDescription.Size.X.Scale, 0, 0, totaldescriptionHeightOffset)
 		end
 
-		
+
 		notificationHolderNotificationUiPadding.PaddingTop = UDim.new(0, notificationHolderNotificationTextFrame.AbsolutePosition.Y - notificationHolderNotification.AbsolutePosition.Y)
 		notificationHolder.Size = UDim2.new(notificationHolder.Size.X.Scale, 0, 0, notificationHolder.AbsoluteSize.Y + totaldescriptionHeightOffset - descriptionTextSize)
-		
-		
-		_G.UIL.Function.CreateProcess(content.title .. " Notification (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
+
+
+		_G.UserInterfaceLibrary.Function.CreateProcess(content.title .. " Notification (" .. tostring(string.len(content.title) + string.len(content.description)) .. ")", function()
 			notificationHolderUiPageLayout:Next()
 			task.wait(content.duration)
 			notificationHolderUiPageLayout:Previous()
@@ -3697,22 +3697,22 @@ function _G.Synergia:CreateWindow()
 
 	--- [ CloseWindowButton.Script (Title Bar) (Event) ] ---
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Close Window Button (MouseEnter)",
 		closeWindowButton.MouseEnter,
-		function() _G.UIL.Function.Animate(closeWindowLabel, "TextColor3", Color3.fromRGB(204, 51, 51)) end
+		function() _G.UserInterfaceLibrary.Function.Animate(closeWindowLabel, "TextColor3", Color3.fromRGB(204, 51, 51)) end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Close Window Button (MouseLeave)",
 		closeWindowButton.MouseLeave,
-		function() _G.UIL.Function.Animate(closeWindowLabel, "TextColor3", Color3.fromRGB(221, 221, 221)) end
+		function() _G.UserInterfaceLibrary.Function.Animate(closeWindowLabel, "TextColor3", Color3.fromRGB(221, 221, 221)) end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Close Window Button (MouseButton1Click)",
 		closeWindowButton.MouseButton1Click,
 		function() _G.Synergia.Window:Hide() end
@@ -3921,17 +3921,17 @@ function _G.Synergia:CreateWindow()
 	homePageWelcomeFrameProfileButton.Image = "rbxassetid://14763739840"
 	homePageWelcomeFrameProfileButton.ImageColor3 = Color3.fromRGB(150, 150, 150)
 	homePageWelcomeFrameProfileButton.ScaleType = Enum.ScaleType.Crop
-	
-	
+
+
 	--- [ ProfilePage (Pages) (Instance) ] ---
-	
-	
-	local ProfilePage = _G.UIL.Element.Element:CreatePage("Profile", 14763739840, tabs, pages, tooltip, pagesUiPageLayout, homePage, HomeTab)
-	
-	
+
+
+	local ProfilePage = _G.UserInterfaceLibrary.Element.Element:CreatePage("Profile", 14763739840, tabs, pages, tooltip, pagesUiPageLayout, homePage, HomeTab)
+
+
 	--- [ ProfilePage.PlayerInformation (Pages) (Instance) ] ---
 
-	
+
 	local profilePagePlayerInformation = Instance.new("Frame")
 	profilePagePlayerInformation.Parent = ProfilePage.page
 	profilePagePlayerInformation.Name = "PlayerInformation"
@@ -3968,8 +3968,8 @@ function _G.Synergia:CreateWindow()
 	profilePagePlayerInformationUiStroke.Color = Color3.fromRGB(81, 81, 81)
 	profilePagePlayerInformationUiStroke.LineJoinMode = Enum.LineJoinMode.Round
 	profilePagePlayerInformationUiStroke.Thickness = 2
-	
-	
+
+
 	--- [ ProfilePage.PlayerInformation.Title (Pages) (Instance) ] ---
 
 
@@ -3994,20 +3994,20 @@ function _G.Synergia:CreateWindow()
 	local profilePagePlayerInformationTitleUiPadding = Instance.new("UIPadding")
 	profilePagePlayerInformationTitleUiPadding.Parent = profilePagePlayerInformationTitle
 	profilePagePlayerInformationTitleUiPadding.PaddingLeft = UDim.new(0.025, 0)
-	
-	
-	profilePagePlayerInformationUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
-	
-	
+
+
+	profilePagePlayerInformationUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
+
+
 	--- [ ProfilePage.PlayerInformation.Script (Pages) (Script) ] ---
-	
-	
+
+
 	local function CreateInformation(key: string, value: string)
-		
-		
+
+
 		--- [ ProfilePage.PlayerInformation.Information (Pages) (Instance) ] ---
-		
-		
+
+
 		local profilePagePlayerInformationInformation = Instance.new("Frame")
 		profilePagePlayerInformationInformation.Parent = profilePagePlayerInformation
 		profilePagePlayerInformationInformation.Name = "Information"
@@ -4015,11 +4015,11 @@ function _G.Synergia:CreateWindow()
 		profilePagePlayerInformationInformation.LayoutOrder = 2
 		profilePagePlayerInformationInformation.Size = UDim2.new(1, 0, 0.4, 0)
 		profilePagePlayerInformationInformation.ZIndex = 1
-		
-		
+
+
 		--- [ ProfilePage.PlayerInformation.Information.Key (Pages) (Instance) ] ---
-		
-		
+
+
 		local profilePagePlayerInformationInformationKey = Instance.new("TextLabel")
 		profilePagePlayerInformationInformationKey.Parent = profilePagePlayerInformationInformation
 		profilePagePlayerInformationInformationKey.Name = "Key"
@@ -4032,16 +4032,16 @@ function _G.Synergia:CreateWindow()
 		profilePagePlayerInformationInformationKey.TextScaled = 1
 		profilePagePlayerInformationInformationKey.TextXAlignment = Enum.TextXAlignment.Left
 		profilePagePlayerInformationInformationKey.TextYAlignment = Enum.TextYAlignment.Center
-		
-		
+
+
 		--- [ ProfilePage.PlayerInformation.Information.Key.UIPadding (Pages) (Instance) ] ---
 
 
 		local profilePagePlayerInformationInformationKeyUiPadding = Instance.new("UIPadding")
 		profilePagePlayerInformationInformationKeyUiPadding.Parent = profilePagePlayerInformationInformationKey
 		profilePagePlayerInformationInformationKeyUiPadding.PaddingLeft = UDim.new(0.1, 0)
-		
-		
+
+
 		--- [ ProfilePage.PlayerInformation.Information.Value (Pages) (Instance) ] ---
 
 
@@ -4058,8 +4058,8 @@ function _G.Synergia:CreateWindow()
 		profilePagePlayerInformationInformationValue.TextScaled = 1
 		profilePagePlayerInformationInformationValue.TextXAlignment = Enum.TextXAlignment.Left
 		profilePagePlayerInformationInformationValue.TextYAlignment = Enum.TextYAlignment.Center
-		
-		
+
+
 		--- [ ProfilePage.PlayerInformation.Information.Value.UIPadding (Pages) (Instance) ] ---
 
 
@@ -4067,8 +4067,8 @@ function _G.Synergia:CreateWindow()
 		profilePagePlayerInformationInformationValueUiPadding.Parent = profilePagePlayerInformationInformationValue
 		profilePagePlayerInformationInformationValueUiPadding.PaddingLeft = UDim.new(0.035, 0)
 	end
-	
-	
+
+
 	local function UpdatePlayerInformationSize()
 		local totalPlayerInformationHeight = 0
 		for _, v in pairs(profilePagePlayerInformation:GetChildren()) do
@@ -4080,67 +4080,67 @@ function _G.Synergia:CreateWindow()
 		profilePagePlayerInformationTitle.Size = UDim2.new(profilePagePlayerInformationTitle.Size.X.Scale, 0, 0, profilePagePlayerInformationTitle.AbsoluteSize.Y)
 		profilePagePlayerInformation.Size = UDim2.new(profilePagePlayerInformation.Size.X.Scale, 0, 0, profilePagePlayerInformationTitle.AbsoluteSize.Y + totalPlayerInformationHeight)
 	end
-	
-	
-	local timeTable = os.date("*t", _G.UIL.Service.Player.AccountAge * 86400)
-	
-	
+
+
+	local timeTable = os.date("*t", _G.UserInterfaceLibrary.Service.Player.AccountAge * 86400)
+
+
 	CreateInformation("Account Age",  string.format("%02d Years %02d Months %02d Days", timeTable.year - 1970, timeTable.month - 1, timeTable.day - 1))
-	CreateInformation("Username", _G.UIL.Service.Player.Name)
-	CreateInformation("Displayname", _G.UIL.Service.Player.DisplayName)
-	CreateInformation("Locale ID", _G.UIL.Service.Player.LocaleId)
-	CreateInformation("User ID", _G.UIL.Service.Player.UserId)
-	CreateInformation("Verified", _G.UIL.Service.Player.HasVerifiedBadge and "Verified" or "Not Verified")
-	CreateInformation("Membership", _G.UIL.Service.Player.MembershipType.Name)
+	CreateInformation("Username", _G.UserInterfaceLibrary.Service.Player.Name)
+	CreateInformation("Displayname", _G.UserInterfaceLibrary.Service.Player.DisplayName)
+	CreateInformation("Locale ID", _G.UserInterfaceLibrary.Service.Player.LocaleId)
+	CreateInformation("User ID", _G.UserInterfaceLibrary.Service.Player.UserId)
+	CreateInformation("Verified", _G.UserInterfaceLibrary.Service.Player.HasVerifiedBadge and "Verified" or "Not Verified")
+	CreateInformation("Membership", _G.UserInterfaceLibrary.Service.Player.MembershipType.Name)
 
 
 	UpdatePlayerInformationSize()
 
 
 	--- [ HomePage.WelcomeFrame.ProfileButton.Script (Pages) (Event) ] ---
-	
-	
+
+
 	local animation: Tween = nil
-	
-	
-	_G.UIL.Function.CreateEvent(
+
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Profile Button (MouseEnter)",
 		homePageWelcomeFrameProfileButton.MouseEnter,
 		function()
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
 			animation.Completed:Wait()
 			animation = nil
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Profile Button (MouseLeave)",
 		homePageWelcomeFrameProfileButton.MouseLeave,
 		function()
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(150, 150, 150))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(150, 150, 150))
 			animation.Completed:Wait()
 			animation = nil
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Profile Button (MouseButton1Click)",
 		homePageWelcomeFrameProfileButton.MouseButton1Click,
 		function()
 			ProfilePage:Select()
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(250, 250, 250))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(250, 250, 250))
 			animation.Completed:Wait()
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameProfileButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
 			animation.Completed:Wait()
 			animation = nil
 		end
 	)
-	
+
 
 	--- [ HomePage.WelcomeFrame.SettingsButton (Pages) (Instance) ] ---
 
@@ -4156,17 +4156,17 @@ function _G.Synergia:CreateWindow()
 	homePageWelcomeFrameSettingsButton.Image = "rbxassetid://14763766487"
 	homePageWelcomeFrameSettingsButton.ImageColor3 = Color3.fromRGB(150, 150, 150)
 	homePageWelcomeFrameSettingsButton.ScaleType = Enum.ScaleType.Crop
-	
-	
+
+
 	--- [ SettingsPage (Pages) (Instance) ] ---
 
 
-	_G.Synergia.Window.Settings = _G.UIL.Element.Element:CreatePage("Settings", 14763766487, tabs, pages, tooltip, pagesUiPageLayout, homePage, HomeTab)
-	
-	
+	_G.Synergia.Window.Settings = _G.UserInterfaceLibrary.Element.Element:CreatePage("Settings", 14763766487, tabs, pages, tooltip, pagesUiPageLayout, homePage, HomeTab)
+
+
 	local isWindowVisible = true
-	
-	
+
+
 	_G.Synergia.Window.Settings:CreateKeybind({
 		title = "Show/Hide Main Window",
 		description = "Used to show or hide the main window.",
@@ -4176,53 +4176,53 @@ function _G.Synergia:CreateWindow()
 			else _G.Synergia.Window:Show() end
 		end
 	})
-	
+
 
 	--- [ HomePage.WelcomeFrame.SettingsButton.Script (Pages) (Event) ] ---
 
 
 	local animation: Tween = nil
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Settings Button (MouseEnter)",
 		homePageWelcomeFrameSettingsButton.MouseEnter,
 		function()
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
 			animation.Completed:Wait()
 			animation = nil
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Settings Button (MouseLeave)",
 		homePageWelcomeFrameSettingsButton.MouseLeave,
 		function()
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(150, 150, 150))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(150, 150, 150))
 			animation.Completed:Wait()
 			animation = nil
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Settings Button (MouseButton1Click)",
 		homePageWelcomeFrameSettingsButton.MouseButton1Click,
 		function()
 			_G.Synergia.Window.Settings:Select()
 			if animation ~= nil then animation:Cancel() end
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(250, 250, 250))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(250, 250, 250))
 			animation.Completed:Wait()
-			animation = _G.UIL.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
+			animation = _G.UserInterfaceLibrary.Function.Animate(homePageWelcomeFrameSettingsButton, "ImageColor3", Color3.fromRGB(200, 200, 200))
 			animation.Completed:Wait()
 			animation = nil
 		end
 	)
-	
-	
+
+
 	--- [ HomePage.WelcomeFrame.ProfilePicture (Pages) (Instance) ] ---
 
 
@@ -4323,7 +4323,7 @@ function _G.Synergia:CreateWindow()
 	homePageWelcomeFrameWelcome.TextXAlignment = Enum.TextXAlignment.Left
 	homePageWelcomeFrameWelcome.TextYAlignment = Enum.TextYAlignment.Center
 
-	
+
 	--- [ HomeTab.Script (Tabs) (Script) ] ---
 
 
@@ -4339,35 +4339,35 @@ function _G.Synergia:CreateWindow()
 
 	--- [ HomeTab.Script (Tabs) (Event) ] ---
 
-	
+
 	HomeTab:SetAttribute("Enabled", true)
 	pagesUiPageLayout:JumpTo(homePage)
-	_G.UIL.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
+	_G.UserInterfaceLibrary.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Home Switch Tab Button (MouseButton1Click)",
 		switchTabButton.MouseButton1Click,
 		function()
 			HomeTab:SetAttribute("Enabled", true)
 			pagesUiPageLayout:JumpTo(homePage)
-			_G.UIL.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
+			_G.UserInterfaceLibrary.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(68, 68, 68))
 			for _, v in pairs(tabs:GetChildren()) do
 				if v:IsA("Frame") and v.Name ~= homeTabTitle then
 					v:SetAttribute("Enabled", false)
-					_G.UIL.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
+					_G.UserInterfaceLibrary.Function.Animate(v, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
 				end
 			end
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Home Switch Tab Button (MouseEnter)",
 		switchTabButton.MouseEnter,
 		function()
 			if not HomeTab:GetAttribute("Enabled") then
-				_G.UIL.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(49, 49, 49))
+				_G.UserInterfaceLibrary.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(49, 49, 49))
 			end
 			if isTruncated then
 				tooltip.Text = homeTabTitle
@@ -4377,8 +4377,8 @@ function _G.Synergia:CreateWindow()
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Home Switch Tab Button (MouseMoved)",
 		switchTabButton.MouseMoved,
 		function()
@@ -4388,13 +4388,13 @@ function _G.Synergia:CreateWindow()
 		end
 	)
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Home Switch Tab Button (MouseLeave)",
 		switchTabButton.MouseLeave,
 		function()
 			if not HomeTab:GetAttribute("Enabled") then
-				_G.UIL.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
+				_G.UserInterfaceLibrary.Function.Animate(HomeTab, "BackgroundColor3", Color3.fromRGB(30, 30, 30))
 			end
 			tooltip.Visible = false
 			tooltip.Size = UDim2.new(1, 0, 0.03, 0)
@@ -4411,9 +4411,9 @@ function _G.Synergia:CreateWindow()
 	local lastMinute = os.date("*t").min
 
 
-	homePageWelcomeFrameProfilePicture.Image = _G.UIL.Service.Players:GetUserThumbnailAsync(_G.UIL.Service.Player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
-	homePageWelcomeFrameDisplayname.Text = _G.UIL.Service.Player.DisplayName
-	homePageWelcomeFrameUsername.Text = "@" .. _G.UIL.Service.Player.Name
+	homePageWelcomeFrameProfilePicture.Image = _G.UserInterfaceLibrary.Service.Players:GetUserThumbnailAsync(_G.UserInterfaceLibrary.Service.Player.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size420x420)
+	homePageWelcomeFrameDisplayname.Text = _G.UserInterfaceLibrary.Service.Player.DisplayName
+	homePageWelcomeFrameUsername.Text = "@" .. _G.UserInterfaceLibrary.Service.Player.Name
 
 
 	local function updateTime()
@@ -4437,10 +4437,10 @@ function _G.Synergia:CreateWindow()
 
 	--- [ HomePage.Script (Tabs) (Event) ] ---
 
-	
-	_G.UIL.Function.CreateEvent(
+
+	_G.UserInterfaceLibrary.Function.CreateEvent(
 		"Heartbeat",
-		_G.UIL.Service.RunService.Heartbeat,
+		_G.UserInterfaceLibrary.Service.RunService.Heartbeat,
 		function()
 			local currentTime = os.date("*t")
 			if currentTime.min ~= lastMinute then
@@ -4449,39 +4449,39 @@ function _G.Synergia:CreateWindow()
 			end
 		end
 	)
-	
-	
+
+
 	function _G.Synergia.Window:CreateTab(content: { title: string, icon: number })
 		assert(content.title and content.icon, "Missing arguments while trying to create a tab.")
-		return _G.UIL.Element.Element:CreateTab(content.title, content.icon, tabs, pages, homePageTabsFrame, tooltip, pagesUiPageLayout, homePage, HomeTab)
+		return _G.UserInterfaceLibrary.Element.Element:CreateTab(content.title, content.icon, tabs, pages, homePageTabsFrame, tooltip, pagesUiPageLayout, homePage, HomeTab)
 	end
 
 
 	function _G.Synergia.Window:Destroy()
 		GUI:Destroy()
-		for name, _ in pairs(_G.UIL.Service.Processes) do _G.UIL.Function.CloseProcess(name) end
-		for name, _ in pairs(_G.UIL.Service.Events) do _G.UIL.Function.CloseEvent(name) end
-		_G.UIL.Service.Processes = {}
-		_G.UIL.Service.Events = {}
+		for name, _ in pairs(_G.UserInterfaceLibrary.Service.Processes) do _G.UserInterfaceLibrary.Function.CloseProcess(name) end
+		for name, _ in pairs(_G.UserInterfaceLibrary.Service.Events) do _G.UserInterfaceLibrary.Function.CloseEvent(name) end
+		_G.UserInterfaceLibrary.Service.Processes = {}
+		_G.UserInterfaceLibrary.Service.Events = {}
 		_G.Synergia.Window = nil
 	end
-	
-	
+
+
 	function _G.Synergia.Window:Show()
 		window.Visible = true
 		isWindowVisible = true
 	end
-	
-	
+
+
 	function _G.Synergia.Window:Hide()
 		window.Visible = false
 		isWindowVisible = false
 	end
-	
-	
+
+
 	local Changelog = nil
 
-	
+
 	function _G.Synergia.Window:CreateChangelog()
 		assert(not Changelog, "Attempted to create changelog when it had already been created.")
 		local changelogMeta = setmetatable({}, Changelog)
@@ -4489,17 +4489,17 @@ function _G.Synergia:CreateWindow()
 			title = "Changelog",
 			icon = 14757049793
 		})
-		
-		
+
+
 		Changelog = {}
 		Changelog.__index = Changelog
-		
-		
+
+
 		local Changelogs = {}
 		Changelogs.__index = Changelogs
 		setmetatable({}, Changelogs)
-		
-		
+
+
 		function changelogMeta:Add(content: { title: string, changes: { string } })
 			local changelogsMeta = setmetatable({}, Changelogs)
 
@@ -4571,7 +4571,7 @@ function _G.Synergia:CreateWindow()
 			changelogTitleUiPadding.PaddingLeft = UDim.new(0.025, 0)
 
 
-			changelogUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			changelogUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 
 
 			local function updateChangelogSize()
@@ -4621,15 +4621,15 @@ function _G.Synergia:CreateWindow()
 
 
 			updateChangelogSize()
-			
+
 
 			function changelogsMeta:Destroy() changelog:Destroy() end
-			
-			
+
+
 			return changelogsMeta
 		end
-		
-		
+
+
 		function changelogMeta:Destroy()
 			spawn(function()
 				changelogMeta = nil
@@ -4638,15 +4638,15 @@ function _G.Synergia:CreateWindow()
 				Changelog.__index = Changelog
 			end)
 		end
-		
-		
+
+
 		return changelogMeta
 	end
 
 
 	local Credits = nil
-	
-	
+
+
 	function _G.Synergia.Window:CreateCredits()
 		assert(not Credits, "Attempted to create credits when it had already been created.")
 		local creditsMeta = setmetatable({}, Credits)
@@ -4728,7 +4728,7 @@ function _G.Synergia:CreateWindow()
 			creditsTitle.TextYAlignment = Enum.TextYAlignment.Center
 
 
-			creditsUiCorner.CornerRadius = UDim.new(0, (_G.UIL.Service.MonitorSize.X - _G.UIL.Service.MonitorSize.Y) * 0.0275)
+			creditsUiCorner.CornerRadius = UDim.new(0, (_G.UserInterfaceLibrary.Service.MonitorSize.X - _G.UserInterfaceLibrary.Service.MonitorSize.Y) * 0.0275)
 
 
 			local function updateCreditsSize()
@@ -4791,42 +4791,42 @@ function _G.Synergia:CreateWindow()
 
 		return creditsMeta
 	end
-	
-	
-	_G.UIL.Function.CreateProcess("Cleanup", function()
+
+
+	_G.UserInterfaceLibrary.Function.CreateProcess("Cleanup", function()
 		while true do task.wait(5)
-			for name: string, process: thread in pairs(_G.UIL.Service.Processes) do
-				if coroutine.status(process) == "dead" then _G.UIL.Function.CloseProcess(name) end
+			for name: string, process: thread in pairs(_G.UserInterfaceLibrary.Service.Processes) do
+				if coroutine.status(process) == "dead" then _G.UserInterfaceLibrary.Function.CloseProcess(name) end
 			end
 
 
-			for name: string, event: RBXScriptConnection in pairs(_G.UIL.Service.Events) do
-				if not event.Connected then _G.UIL.Function.CloseEvent(name) end
+			for name: string, event: RBXScriptConnection in pairs(_G.UserInterfaceLibrary.Service.Events) do
+				if not event.Connected then _G.UserInterfaceLibrary.Function.CloseEvent(name) end
 			end
 		end
 	end)
-	
-	
+
+
 	function _G.Synergia.Window:CreateProcess(name: string, process: any)
-		_G.UIL.Function.CreateProcess(name, process)
+		_G.UserInterfaceLibrary.Function.CreateProcess(name, process)
 	end
-	
-	
+
+
 	function _G.Synergia.Window:CloseProcess(name: string)
-		_G.UIL.Function.CloseProcess(name)
+		_G.UserInterfaceLibrary.Function.CloseProcess(name)
 	end
-	
-	
+
+
 	function _G.Synergia.Window:CreateEvent(name: string, event: RBXScriptSignal, callback: any)
-		_G.UIL.Function.CreateEvent(name, event, callback)
+		_G.UserInterfaceLibrary.Function.CreateEvent(name, event, callback)
 	end
 
 
 	function _G.Synergia.Window:CloseEvent(name: string)
-		_G.UIL.Function.CloseEvent(name)
+		_G.UserInterfaceLibrary.Function.CloseEvent(name)
 	end
-	
-	
+
+
 	return _G.Synergia.Window
 end
 
